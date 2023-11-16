@@ -5,6 +5,7 @@ from pymongo import MongoClient, DESCENDING
 
 import os
 
+SECRET_MONGO = os.getenv('SECRET_MONGO')
 
 
 client = MongoClient(SECRET_MONGO)

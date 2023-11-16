@@ -6,11 +6,11 @@ import json
 from pymongo import MongoClient
 from flask_cors import CORS
 
+import os
+SECRET_MONGO = os.getenv('SECRET_MONGO')
 
 
-
-
-
+SECRET_API_KEY = os.getenv('SECRET_API_KEY')
 app = Flask(__name__)
 CORS(app)
 
