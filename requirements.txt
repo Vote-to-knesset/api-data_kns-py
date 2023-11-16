@@ -5,3 +5,5 @@ pymongo
 config
 requests
 dotenv
+flask_cors
+os
