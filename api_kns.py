@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, abort
-from waitress import  serve
 from config import *
 from KNS_data import *
+import db_kns
 import json
 from pymongo import MongoClient
 from flask_cors import CORS
@@ -9,6 +9,7 @@ import dotenv
 from dotenv import load_dotenv
 import os
 import datetime
+
 load_dotenv()
 
 
@@ -160,5 +161,5 @@ def api_data_parties():
 
 
 if __name__ == "__main__":
-    serve(app, host='0.0.0.0', port=10000, threads=1, url_prefix ="/kns_vote")
+    app.run(host='0.0.0.0', port=5000)
 
