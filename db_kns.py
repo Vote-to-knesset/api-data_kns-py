@@ -1,18 +1,21 @@
 from set_tables import *
 import threading
 import time
-from pymongo import MongoClient
+from pymongo import MongoClient, DESCENDING
 from dotenv import load_dotenv
 import os
 import datetime
 load_dotenv()
 
-
-
 client = MongoClient(os.environ.get('SECRET_MONGO'))
 db = client['kns_data']
 
-new_last = db.bills.find_one(sort=[("BillID", -1)])['BillID'] if db.bills.count_documents({}) > 0 else 2211110
+bills_collection = db['bills']
+
+
+sorted_bills = list(bills_collection.find({}, {'_id': 0}))
+new_last = int(sorted_bills[-1]['BillID'])
+
 
 
 def update_new_bills():

@@ -1,12 +1,12 @@
-
+from pymongo import MongoClient
+from datetime import datetime
 from dotenv import load_dotenv
 import os
 import datetime
 load_dotenv()
 
 
-from pymongo import MongoClient
-from datetime import datetime
+
 
 # Assuming SECRET_MONGO is your MongoDB connection string
 client = MongoClient(os.environ.get('SECRET_MONGO'))
@@ -16,6 +16,7 @@ comments_collection = db['billsComment']
 
 # Find all documents in the bills collection
 sorted_bills = bills_collection.find({}, {'_id': 0})
+
 
 # Iterate through each bill document
 for bill in sorted_bills:

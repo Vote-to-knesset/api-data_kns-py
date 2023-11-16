@@ -86,8 +86,6 @@ def update_data():
         update_bill_vote(data)
         update_parties_vote(data)
 
-
-
         response = {'message': 'Data updated successfully'}
         return jsonify(response), 200
 
@@ -108,19 +106,23 @@ def get_data_bills_from_db():
 
         last_100_bills = list(sorted_bills)
 
+
         client.close()
         return last_100_bills
     except Exception as e:
         error_response = {'error': str(e)}
 
 def get_data_parties_from_db():
-    client = MongoClient(SECRET_MONGO)  # Replace with your MongoDB connection URL
-    db = client['kns_data']  # Replace with your MongoDB database name
-    parties_collection = db['parties']
-    all_parties_data = list(parties_collection.find({}, {'_id': 0}))
-    client.close()
-    print(len(all_parties_data))
-    return all_parties_data
+    try:
+        client = MongoClient(SECRET_MONGO)  # Replace with your MongoDB connection URL
+        db = client['kns_data']  # Replace with your MongoDB database name
+        parties_collection = db['parties']
+        all_parties_data = list(parties_collection.find({}, {'_id': 0}))
+        client.close()
+        return all_parties_data
+    except Exception as e:
+        error_response = {'error': str(e)}
+
 
 
 @app.route('/api/data_bills', methods=['GET'])
@@ -128,6 +130,25 @@ def api_data():
     data = get_data_bills_from_db()
     sorted_data = sort_bills_by_interest(data)
     response =json.dumps(sorted_data, ensure_ascii=False).encode('utf8')
+    return response
+
+
+def get_data_bills_comments_from_db():
+    try:
+        client = MongoClient(SECRET_MONGO)
+        db = client['kns_data']
+        comments_collection = db['billsComment']
+        all_comments_data = list(comments_collection.find({}, {'_id': 0}))
+        client.close()
+        return all_comments_data
+    except Exception as e:
+        error_response = {'error': str(e)}
+
+
+@app.route('/api/get_comments', methods=['GET'])
+def api_data_comments():
+    data = get_data_bills_comments_from_db()
+    response =json.dumps(data, ensure_ascii=False).encode('utf8')
     return response
 
 @app.route('/api/data_parties', methods=['GET'])
