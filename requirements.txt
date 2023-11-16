@@ -1,6 +1,6 @@
 gunicorn
 
-flask==2.2.2
+flask
 pymongo
 config
 requests
