@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, abort
+from waitress import  serve
 from config import *
 from KNS_data import *
 import json
@@ -159,5 +160,5 @@ def api_data_parties():
 
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=5000)
+    serve(app, host='0.0.0.0', port=10000, threads=1, url_prefix ="/kns_vote")
 
