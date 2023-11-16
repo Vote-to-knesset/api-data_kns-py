@@ -75,6 +75,12 @@ def sort_bills_by_interest(data):
     return sorted_data
 
 
+@app.route('/', methods=['GET'])
+def all():
+    return "hi"
+
+
+
 @app.route('/api/update_data', methods=['POST'])
 def update_data():
     try:
