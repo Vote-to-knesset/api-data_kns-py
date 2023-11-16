@@ -5,18 +5,14 @@ import db_kns
 import json
 from pymongo import MongoClient
 from flask_cors import CORS
-import dotenv
-from dotenv import load_dotenv
-import os
-import datetime
 
-load_dotenv()
+
+
+
 
 
 app = Flask(__name__)
 CORS(app)
-SECRET_MONGO = os.environ.get('SECRET_MONGO')
-SECRET_API_KEY = os.environ.get('SECRET_API_KEY')
 
 
 def authenticate_request():

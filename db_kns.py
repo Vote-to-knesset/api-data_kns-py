@@ -2,12 +2,12 @@ from set_tables import *
 import threading
 import time
 from pymongo import MongoClient, DESCENDING
-from dotenv import load_dotenv
-import os
-import datetime
-load_dotenv()
 
-client = MongoClient(os.environ.get('SECRET_MONGO'))
+import os
+
+
+
+client = MongoClient(SECRET_MONGO)
 db = client['kns_data']
 
 bills_collection = db['bills']
