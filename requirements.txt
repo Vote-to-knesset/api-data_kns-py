@@ -4,4 +4,5 @@ flask
 pymongo
 config
 requests
+flask_cors
 
