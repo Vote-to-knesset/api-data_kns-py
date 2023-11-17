@@ -137,12 +137,12 @@ def api_data():
     return response
 
 
-def get_data_bills_comments_from_db():
+def get_data_bills_comments_from_db(bill_id):
     try:
         client = MongoClient(SECRET_MONGO)
         db = client['kns_data']
         comments_collection = db['billsComment']
-        all_comments_data = list(comments_collection.find({}, {'_id': 0}))
+        all_comments_data = list(comments_collection.find({'billId': bill_id}, {'_id': 0}))
         client.close()
         return all_comments_data
     except Exception as e:
@@ -151,7 +151,8 @@ def get_data_bills_comments_from_db():
 
 @app.route('/api/get_comments', methods=['GET'])
 def api_data_comments():
-    data = get_data_bills_comments_from_db()
+    bill_id = request.args.get('billId')
+    data = get_data_bills_comments_from_db(bill_id)
     response =json.dumps(data, ensure_ascii=False).encode('utf8')
     return response
 
