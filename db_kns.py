@@ -13,9 +13,8 @@ db = client['kns_data']
 
 bills_collection = db['bills']
 
-
-sorted_bills = list(bills_collection.find({}, {'_id': 0}))
-new_last = int(sorted_bills[-1]['BillID'])
+new_last = bills_collection.find_one({}, sort=[('BillID', -1)])
+new_last = int(new_last['BillID'])
 
 
 

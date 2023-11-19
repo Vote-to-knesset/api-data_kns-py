@@ -152,6 +152,7 @@ def get_data_bills_comments_from_db(bill_id):
 @app.route('/api/get_comments', methods=['GET'])
 def api_data_comments():
     bill_id = request.args.get('billId')
+    print(bill_id)
     data = get_data_bills_comments_from_db(bill_id)
     response =json.dumps(data, ensure_ascii=False).encode('utf8')
     return response
@@ -164,5 +165,5 @@ def api_data_parties():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run()
 
