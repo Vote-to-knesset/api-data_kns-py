@@ -71,7 +71,7 @@ def update_parties_vote(data):
 
 
 def sort_bills_by_interest(data):
-    sorted_data = sorted(data, key=lambda x: x['total_vote'], reverse=True)
+    sorted_data = data.reverse()
     return sorted_data
 
 
