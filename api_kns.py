@@ -132,7 +132,8 @@ def get_data_parties_from_db():
 @app.route('/api/data_bills', methods=['GET'])
 def api_data():
     data = get_data_bills_from_db()
-    sorted_data = sort_bills_by_interest(data).reverse()
+    sorted_data = sort_bills_by_interest(data)
+    sorted_data.reverse()
     response = json.dumps(sorted_data, ensure_ascii=False).encode('utf8')
     return response
 
