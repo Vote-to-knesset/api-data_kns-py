@@ -103,7 +103,7 @@ def get_data_bills_from_db():
         db = client['kns_data']
         bills_collection = db['bills']
 
-        sorted_bills = bills_collection.find({}, {'_id': 0})
+        sorted_bills = bills_collection.find({}, {'_id': 0}).limit(100)
 
 
 
