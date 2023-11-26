@@ -97,13 +97,13 @@ def update_data():
         error_response = {'error': str(e)}
         return jsonify(error_response), 500
 
-def get_data_bills_from_db():
+def get_data_bills_from_db(skip_number=0):
     try:
         client = MongoClient(SECRET_MONGO)
         db = client['kns_data']
         bills_collection = db['bills']
 
-        sorted_bills = bills_collection.find({}, {'_id': 0}).limit(100)
+        sorted_bills = bills_collection.find({}, {'_id': 0}).skip(skip_number).limit(50)
 
 
 
@@ -131,7 +131,8 @@ def get_data_parties_from_db():
 
 @app.route('/api/data_bills', methods=['GET'])
 def api_data():
-    data = get_data_bills_from_db()
+    skip = request.args.get('skip', default=0, type=int)
+    data = get_data_bills_from_db(skip)
     sorted_data = sort_bills_by_interest(data)
     response = json.dumps(sorted_data, ensure_ascii=False).encode('utf8')
     return response
