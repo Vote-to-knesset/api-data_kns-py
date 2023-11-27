@@ -116,12 +116,12 @@ def get_data_bills_from_db(skip_number=0):
     except Exception as e:
         error_response = {'error': str(e)}
 
-def get_data_parties_from_db():
+def get_data_parties_from_db(bill_id):
     try:
         client = MongoClient(SECRET_MONGO)  # Replace with your MongoDB connection URL
         db = client['kns_data']  # Replace with your MongoDB database name
         parties_collection = db['parties']
-        all_parties_data = list(parties_collection.find({}, {'_id': 0}))
+        all_parties_data = list(parties_collection.find({'billId': bill_id}, {'_id': 0}))
         client.close()
         return all_parties_data
     except Exception as e:
@@ -153,14 +153,14 @@ def get_data_bills_comments_from_db(bill_id):
 @app.route('/api/get_comments', methods=['GET'])
 def api_data_comments():
     bill_id = request.args.get('billId')
-    print(bill_id)
     data = get_data_bills_comments_from_db(bill_id)
-    response =json.dumps(data, ensure_ascii=False).encode('utf8')
+    response = json.dumps(data, ensure_ascii=False).encode('utf8')
     return response
 
 @app.route('/api/data_parties', methods=['GET'])
 def api_data_parties():
-    data = get_data_parties_from_db()
+    bill_id = request.args.get('billId')
+    data = get_data_parties_from_db(bill_id)
     response = json.dumps(data, ensure_ascii=False).encode('utf8')
     return response
 
