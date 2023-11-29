@@ -159,7 +159,7 @@ def api_data_comments():
 
 @app.route('/api/data_parties', methods=['GET'])
 def api_data_parties():
-    bill_id = request.args.get('billId')
+    bill_id = request.args.get('BillID')
     data = get_data_parties_from_db(bill_id)
     response = json.dumps(data, ensure_ascii=False).encode('utf8')
     return response
