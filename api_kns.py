@@ -121,7 +121,7 @@ def get_data_parties_from_db(bill_id):
         client = MongoClient(SECRET_MONGO)  # Replace with your MongoDB connection URL
         db = client['kns_data']  # Replace with your MongoDB database name
         parties_collection = db['parties']
-        all_parties_data = list(parties_collection.find({'billId': bill_id}, {'_id': 0}))
+        all_parties_data = list(parties_collection.find({'BillID': bill_id}, {'_id': 0}))
         client.close()
         return all_parties_data
     except Exception as e:
