@@ -103,7 +103,7 @@ def get_data_bills_from_db(skip_number=0):
         db = client['kns_data']
         bills_collection = db['bills']
 
-        sorted_bills = bills_collection.find({}, {'_id': 0}).skip(skip_number).limit(50)
+        sorted_bills = bills_collection.find({}, {'_id': 0}).sort({"total_vote": -1}).skip(skip_number).limit(50)
 
 
 

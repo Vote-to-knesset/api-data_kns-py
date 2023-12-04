@@ -2,10 +2,10 @@ from set_tables import *
 import threading
 import time
 from pymongo import MongoClient, DESCENDING
-
+from dotenv import load_dotenv
 import os
-
-SECRET_MONGO = os.getenv('SECRET_MONGO')
+load_dotenv()
+SECRET_MONGO = os.environ.get('SECRET_MONGO')
 
 
 client = MongoClient(SECRET_MONGO)
