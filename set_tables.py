@@ -41,6 +41,16 @@ def get_documents(my_json):
             print(f"Error fetching document for {bill['BillID']}: {e}")
     return my_json
 
+def get_persona(bill_id):
+    p = knesset_data_info.get_presenters_of_the_bill_by_id(bill_id)
+    print(p)
+    try:
+        person = p[0]['PersonID']
+        person_name = knesset_data_info.get_knesset_members_info_by_personID(person)
+        return person_name
+    except:
+        pass
+
 
 
 def get_billi(bills):

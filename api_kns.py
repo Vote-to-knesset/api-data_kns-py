@@ -38,7 +38,6 @@ def update_bill_vote(data):
         }
     }
 
-    # Update the document with the specified BillID
     result = bills_collection.update_one(filter_criteria, update_operation)
     if result.matched_count > 0:
         print(f"Updated total_vote and in_favor for document with BillID: {bill_id_to_update}")
@@ -103,13 +102,18 @@ def get_data_bills_from_db(skip_number=0):
         db = client['kns_data']
         bills_collection = db['bills']
 
-        sorted_bills = bills_collection.find({}, {'_id': 0}).sort({"total_vote": -1}).skip(skip_number).limit(50)
+        lim = 50
+        if skip_number == 0:
+            new_bills = bills_collection.find({}, {'_id': 0}).sort({"BillID": -1}).limit(10)
+            new_bills = list(new_bills)
+            lim = 40
+        else:
+            new_bills = []
 
-
-
+        sorted_bills = bills_collection.find({}, {'_id': 0}).sort({"total_vote": -1}).skip(skip_number).limit(lim)
 
         last_100_bills = list(sorted_bills)
-
+        last_100_bills += new_bills
 
         client.close()
         return last_100_bills
@@ -156,6 +160,34 @@ def api_data_comments():
     data = get_data_bills_comments_from_db(bill_id)
     response = json.dumps(data, ensure_ascii=False).encode('utf8')
     return response
+
+
+def get_data_names_from_db(name):
+    try:
+        client = MongoClient(SECRET_MONGO)
+        db = client['kns_data']
+        bills_collection = db['bills']
+        query = {
+            "$or": [
+                {"name": {"$regex": name, "$options": "i"}},
+                {"Name": {"$regex": name, "$options": "i"}}
+            ]
+        }
+        matching_bills = list(bills_collection.find(query, {'_id': 0}))
+
+        client.close()
+        return matching_bills
+    except Exception as e:
+        error_response = {'error': str(e)}
+        return error_response
+
+@app.route('/api/search', methods=['GET'])
+def api_data_parties():
+    name = request.args.get('name')
+    data = get_data_names_from_db(name)
+    response = json.dumps(data, ensure_ascii=False).encode('utf8')
+    return response
+
 
 @app.route('/api/data_parties', methods=['GET'])
 def api_data_parties():

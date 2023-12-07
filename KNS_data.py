@@ -152,6 +152,7 @@ class KnessetData:
         bill_initiator_url = "KNS_BillInitiator"
         knesset_data_extractor = self.create_data_extractor()
         bill_initiator_data = knesset_data_extractor.extract_data(self.get_by_id(bill_initiator_url, id))
+        print(bill_initiator_data)
         response = knesset_data_extractor.return_data(bill_initiator_data)
         return response
 
