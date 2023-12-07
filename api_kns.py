@@ -183,9 +183,9 @@ def get_data_names_from_db(name):
 
 @app.route('/api/search', methods=['GET'])
 def api_data_search():
-    request_data = request.json
-    name = request_data.get('name')
-    data = get_data_names_from_db(name)
+
+    name = request.get_json()
+    data = get_data_names_from_db(name['name'])
     response = json.dumps(data, ensure_ascii=False).encode('utf8')
     return response
 
