@@ -4,15 +4,8 @@ import time
 from pymongo import MongoClient, DESCENDING
 
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
-
-
-
-
-SECRET_MONGO= os.environ.get('SECRET_MONGO')
-# SECRET_MONGO = os.getenv('SECRET_MONGO')
+SECRET_MONGO = os.getenv('SECRET_MONGO')
 
 
 client = MongoClient(SECRET_MONGO)
