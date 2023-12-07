@@ -181,7 +181,7 @@ def get_data_names_from_db(name):
         error_response = {'error': str(e)}
         return error_response
 
-@app.route('/api/search', methods=['GET'])
+@app.route('/api/search', methods=['POST'])
 def api_data_search():
 
     name = request.get_json()
