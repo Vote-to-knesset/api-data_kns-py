@@ -182,7 +182,7 @@ def get_data_names_from_db(name):
         return error_response
 
 @app.route('/api/search', methods=['GET'])
-def api_data_parties():
+def api_data_search():
     request_data = request.json
     name = request_data.get('name')
     data = get_data_names_from_db(name)
