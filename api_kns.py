@@ -183,7 +183,8 @@ def get_data_names_from_db(name):
 
 @app.route('/api/search', methods=['GET'])
 def api_data_parties():
-    name = request.args.get('name')
+    request_data = request.json
+    name = request_data.get('name')
     data = get_data_names_from_db(name)
     response = json.dumps(data, ensure_ascii=False).encode('utf8')
     return response
