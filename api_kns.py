@@ -181,6 +181,15 @@ def get_data_names_from_db(name):
         error_response = {'error': str(e)}
         return error_response
 
+def get_data_bills_by_id(lst_bills):
+    client = MongoClient(SECRET_MONGO)
+    db = client['kns_data']
+    bills_collection = db['bills']
+    bills = bills_collection.find({'BillID': {'$in': lst_bills}})
+    bills_list = list(bills)
+    return bills_list
+
+
 @app.route('/api/search', methods=['POST'])
 def api_data_search():
 
@@ -197,6 +206,13 @@ def api_data_parties():
     response = json.dumps(data, ensure_ascii=False).encode('utf8')
     return response
 
+
+@app.route('/api/data_bills/by_id', methods=['GET'])
+def api_data_bills_by_id():
+    bills_id = request.get_json()
+    data = get_data_bills_by_id(bills_id)
+    response = json.dumps(data, ensure_ascii=False).encode('utf8')
+    return response
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 10000))
