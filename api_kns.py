@@ -210,6 +210,7 @@ def api_data_parties():
 @app.route('/api/data_bills/by_id', methods=['GET'])
 def api_data_bills_by_id():
     bills_id = request.get_json()
+    bills_id = bills_id['bills']
     data = get_data_bills_by_id(bills_id)
     response = json.dumps(data, ensure_ascii=False).encode('utf8')
     return response
