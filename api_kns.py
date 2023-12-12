@@ -185,7 +185,7 @@ def get_data_bills_by_id(lst_bills):
     client = MongoClient(SECRET_MONGO)
     db = client['kns_data']
     bills_collection = db['bills']
-    bills = bills_collection.find({'BillID': {'$in': lst_bills}})
+    bills = bills_collection.find({'BillID': {'$in': lst_bills}}, {'_id': 0})
     bills_list = list(bills)
     return bills_list
 
