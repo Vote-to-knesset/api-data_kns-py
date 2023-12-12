@@ -102,11 +102,11 @@ def get_data_bills_from_db(skip_number=0):
         db = client['kns_data']
         bills_collection = db['bills']
 
-        lim = 50
+        lim =20
         if skip_number == 0:
-            new_bills = bills_collection.find({}, {'_id': 0}).sort({"BillID": -1}).limit(10)
+            new_bills = bills_collection.find({}, {'_id': 0}).sort({"BillID": -1}).limit(5)
             new_bills = list(new_bills)
-            lim = 40
+            lim = 15
         else:
             new_bills = []
 

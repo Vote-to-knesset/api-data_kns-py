@@ -41,6 +41,7 @@ def get_documents(my_json):
             print(f"Error fetching document for {bill['BillID']}: {e}")
     return my_json
 
+
 def get_persona(bill_id):
     p = knesset_data_info.get_presenters_of_the_bill_by_id(bill_id)
     print(p)
@@ -80,6 +81,8 @@ if __name__ == "__main__":
         voters['in_favor'] = 0
         voters['against'] = 0
     print(finished_table)
+
+
 
 
 
