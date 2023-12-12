@@ -207,9 +207,9 @@ def api_data_parties():
     return response
 
 
-@app.route('/api/data_bills/by_id', methods=['GET'])
+@app.route('/api/data_bills/by_id', methods=['POST'])
 def api_data_bills_by_id():
-    bills_ids = request.args.getlist('bills')
+    bills_ids = request.get_json()
     data = get_data_bills_by_id(bills_ids)
     response = json.dumps(data, ensure_ascii=False).encode('utf8')
     return response
