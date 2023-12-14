@@ -18,7 +18,7 @@ bills = list(bills_collection.find({}, {'_id': 0}))
 # parties = list(parties_collection.find({}, {'BillID': 1, '_id': 0}))
 # bill_id_bills = [bill['BillID'] for bill in bills]
 # bill_id_parties = set([bill['BillID'] for bill in parties])
-print(bills)
+
 for bill in bills:
     if bill['present'] == '':
         bill_id = bill['BillID']
@@ -31,12 +31,10 @@ for bill in bills:
             }
         }
         result = bills_collection.update_one(filter_criteria, update_operation)
-        if result.matched_count > 0:
-            print(f"Updated total_vote and in_favor for document with BillID: {bill_id}")
 
 
 
-
+print(bills)
 
 
 

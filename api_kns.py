@@ -153,6 +153,22 @@ def get_data_bills_comments_from_db(bill_id):
     except Exception as e:
         error_response = {'error': str(e)}
 
+def get_data_lows_from_db():
+    try:
+        client = MongoClient(SECRET_MONGO)
+        db = client['kns_data']
+        laws_collection = db['laws_collection']
+        all_laws_data = list(laws_collection.find({}, {'_id': 0}))
+        client.close()
+        return all_laws_data
+    except Exception as e:
+        error_response = {'error': str(e)}
+
+@app.route('/api/data_laws', methods=['GET'])
+def api_data_lows():
+    data = get_data_lows_from_db()
+    response = json.dumps(data, ensure_ascii=False).encode('utf8')
+    return response
 
 @app.route('/api/get_comments', methods=['GET'])
 def api_data_comments():
