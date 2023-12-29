@@ -99,7 +99,7 @@ def update_law_vote(vote_id):
         return {}
 
 # Update data for the law vote with ID 39971 as an example
-next_prev_votes = update_law_vote(40071)
+next_prev_votes = update_law_vote(40238)
 print(next_prev_votes)
 print(f"Updated law data for vote ID 39971")
 
