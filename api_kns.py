@@ -110,7 +110,7 @@ def get_data_bills_from_db(skip_number=0):
         else:
             new_bills = []
 
-        sorted_bills = bills_collection.find({}, {'_id': 0}).sort({"total_vote": -1}).skip(skip_number).limit(lim)
+        sorted_bills = bills_collection.find({}, {'_id': 0}).sort({"total_results": -1}).skip(skip_number).limit(lim)
 
         last_100_bills = list(sorted_bills)
         last_100_bills += new_bills
