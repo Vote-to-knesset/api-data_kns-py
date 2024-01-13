@@ -133,7 +133,7 @@ def get_data_parties_from_db(bill_id):
 
 
 
-@app.route('/api/data_bills', methods=['GET'])
+@app.route('/api/data_bills', methods=['POST'])
 def api_data():
     skip = request.args.get('skip', default=0, type=int)
     selected_hover = request.get_json()
